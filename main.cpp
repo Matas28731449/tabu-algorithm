@@ -17,8 +17,8 @@ const int start_node = 0;
 int max_fitness = 0;
 
 // Data structure to represent graph
-unordered_map<string, vector<vector<int>>> read_data(const string& path) {
-    unordered_map<string, vector<vector<int>>> links;
+unordered_map<string, vector<vector<int> > > read_data(const string& path) {
+    unordered_map<string, vector<vector<int> > > links;
     int max_weight = 0;
 
     ifstream file(path);
@@ -43,8 +43,8 @@ unordered_map<string, vector<vector<int>>> read_data(const string& path) {
     return links;
 }
 
-vector<vector<string>> hill_climbing(const vector<string>& state, size_t node) {
-    vector<vector<string>> neighbors;
+vector<vector<string> > hill_climbing(const vector<string>& state, size_t node) {
+    vector<vector<string> > neighbors;
 
     for (size_t i = 1; i < state.size(); ++i) {
         if (i != node) {
@@ -57,7 +57,7 @@ vector<vector<string>> hill_climbing(const vector<string>& state, size_t node) {
     return neighbors;
 }
 
-int weight_distance(int city1, int city2, const unordered_map<string, vector<vector<int>>>& graph) {
+int weight_distance(int city1, int city2, const unordered_map<string, vector<vector<int> > >& graph) {
     auto neighbors = graph.at(to_string(city1));
 
     for (const auto& neighbor : neighbors) {
@@ -69,7 +69,7 @@ int weight_distance(int city1, int city2, const unordered_map<string, vector<vec
     return -1; // No such edge
 }
 
-int fitness(const vector<string>& route, const unordered_map<string, vector<vector<int>>>& graph) {
+int fitness(const vector<string>& route, const unordered_map<string, vector<vector<int> > >& graph) {
     int path_length = 0;
 
     for (size_t i = 0; i < route.size(); ++i) {
@@ -129,7 +129,7 @@ vector<string> tabu_search(const string& input_file_path) {
     vector<string> sBest = s0;
     int vBest = fitness(s0, graph);
     vector<string> bestCandidate = s0;
-    vector<vector<string>> tabuList;
+    vector<vector<string> > tabuList;
     tabuList.push_back(s0);
     bool stop = false;
     int best_keep_turn = 0;
