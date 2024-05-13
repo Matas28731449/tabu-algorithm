@@ -1,2 +1,6 @@
-# tabu-algorithm
-Group project for Optimization Methods at Vilnius University
+# Tabu paieška
+
+## Problema
+
+Koks yra trumpiausias maršrutas, kuris aplankytų kiekvieną miestą vieną kartą ir grįžtų į pradinį miestą?
+
