@@ -87,6 +87,17 @@ int fitness(const vector<string>& route, const unordered_map<string, vector<vect
     return path_length;
 }
 
+void fitness_weight(const vector<string>& route, const unordered_map<string, vector<vector<int>>>& graph) {
+    for (size_t i = 0; i < route.size(); ++i) {
+        int city1 = stoi(route[i]);
+        int city2 = (i + 1 < route.size()) ? stoi(route[i + 1]) : stoi(route[0]);
+        int dist = weight_distance(city1, city2, graph);
+
+        cout << dist << " ";
+    }
+    cout << endl;
+}
+
 vector<string> tabu_search(const string& input_file_path) {
     auto graph = read_data(input_file_path);
 
@@ -123,7 +134,6 @@ vector<string> tabu_search(const string& input_file_path) {
     bool stop = false;
     int best_keep_turn = 0;
 
-    clock_t start_time = clock();
     while (!stop) {
 
         auto newCandidates = hill_climbing(bestCandidate, rand() % (bestCandidate.size() - 1) + 1);
@@ -149,21 +159,29 @@ vector<string> tabu_search(const string& input_file_path) {
         ++best_keep_turn;
     }
 
-    double exec_time = double(clock() - start_time) / CLOCKS_PER_SEC;
-    cout << vBest << endl;
     return sBest;
 }
 
 int main() {
     srand(time(nullptr));
-    string input_file_path = "test2.txt";
+    string input_file_path;
+    cout << "Provide a data file name: ";
+    cin >> input_file_path;
     vector<string> solution = tabu_search(input_file_path);
 
-    cout << "Optimal Solution: ";
+    cout << "Optimal path: ";
     for (const auto& node : solution) {
-        cout << node << " ";
+        cout << node << " -> ";
     }
-    cout << endl;
+    cout << solution[0] << endl;
+
+    auto graph = read_data(input_file_path);
+    int optimal_fitness = fitness(solution, graph);
+
+    cout << "Weights: ";
+    fitness_weight(solution, graph);
+
+    cout << "Optimalus weight: " << optimal_fitness << endl;
 
     return 0;
 }
