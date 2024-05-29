@@ -167,6 +167,9 @@ int main() {
     string input_file_path;
     cout << "Provide a data file name: ";
     cin >> input_file_path;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+
     vector<string> solution = tabu_search(input_file_path);
 
     cout << "Optimal path: ";
@@ -182,6 +185,10 @@ int main() {
     fitness_weight(solution, graph);
 
     cout << "Optimalus weight: " << optimal_fitness << endl;
+
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+    std::cout << "Execution time: " << duration.count() << " milliseconds" << std::endl;
 
     return 0;
 }
